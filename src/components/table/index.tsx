@@ -5,6 +5,7 @@ export default function Table() {
     <div>
       <div>Header</div>
       <div>Body</div>
+      <div>分页</div>
     </div>
   );
 }
