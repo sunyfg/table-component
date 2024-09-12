@@ -12,10 +12,6 @@ import url from "@rollup/plugin-url"; // 处理图片
 
 const pkg = JSON.parse(readFileSync("./package.json"));
 
-const extensions = [".js", ".jsx", ".ts", ".tsx"];
-
-const isProduction = process.env.NODE_ENV === "production";
-
 export default defineConfig(
   {
     input: "./src/index.ts",
@@ -57,5 +53,5 @@ export default defineConfig(
     ],
     external: ["react", "react-dom"],
   },
-  {}
+  {},
 );
