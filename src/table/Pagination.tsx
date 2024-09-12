@@ -146,6 +146,7 @@ const Pagination = ({
         每页显示
         <select
           className="pagination-page-size-select"
+          value={pageSize}
           onChange={e => {
             const pageSize = parseInt(e.target.value, 10);
             const totalPages = Math.ceil(total / pageSize);

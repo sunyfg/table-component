@@ -40,12 +40,13 @@ function Table<T>(props: TableProps<T>) {
     pagenation,
   } = props;
 
-  const [sortedData, handleSort] = useTableSort<T>({
-    dataSource: dataSource,
-    columns,
-    sortByKey: null,
-    sortOrder: 'asc',
-  });
+  const { sortedData, sortedColumn, sortDirection, handleSort } =
+    useTableSort<T>({
+      dataSource: dataSource,
+      columns,
+      sortByKey: null,
+      sortOrder: 'asc',
+    });
 
   const leftColumns = useMemo(
     () => columns.filter(c => c.fixed === 'left'),
@@ -60,7 +61,7 @@ function Table<T>(props: TableProps<T>) {
   // 渲染表格内容
   const renderRows = useMemo(() => {
     const { current, pageSize } = pagenation || { current: 1, pageSize: 10 };
-    return (sortedData as T[])
+    return sortedData
       ?.slice((current - 1) * pageSize, current * pageSize)
       .map((record, rowIndex) => {
         let leftWidth = 0;
@@ -143,8 +144,10 @@ function Table<T>(props: TableProps<T>) {
             leftColumns={leftColumns}
             columns={middleColumns}
             rightColumns={rightColumns}
-            onSort={handleSort as (column: keyof T) => void}
+            onSort={handleSort}
             sticky={sticky}
+            sortedColumn={sortedColumn}
+            sortDirection={sortDirection}
           />
           <tbody className={`${prefixCls}-body`}>{renderRows}</tbody>
         </table>

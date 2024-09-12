@@ -54,7 +54,12 @@ function useTableSort<T>({
     }
   };
 
-  return [sortedData, handleSort];
+  return {
+    sortedData,
+    handleSort,
+    sortedColumn,
+    sortDirection,
+  };
 }
 
 export default useTableSort;

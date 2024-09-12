@@ -7,6 +7,8 @@ interface TableHeaderProps<T> {
   columns: ColumnType<T>[]; // 假设ColumnProps是Column组件的Props类型
   rightColumns: ColumnType<T>[]; // 假设ColumnProps是Column组件的Props类型
   sticky?: boolean; // 是否固定表头
+  sortedColumn?: keyof T; // 当前排序的列
+  sortDirection?: 'asc' | 'desc'; // 排序方向
   onSort: (column: keyof T) => void;
 }
 
@@ -16,6 +18,8 @@ function Header<T>({
   columns,
   rightColumns,
   sticky,
+  sortedColumn,
+  sortDirection,
   onSort,
 }: TableHeaderProps<T>) {
   let leftWidth = 0;
@@ -40,7 +44,23 @@ function Header<T>({
     if (params?.right) {
       styles.right = params.right;
     }
-    const className = `${prefixCls}-head-cell ${column.fixed ? `${prefixCls}-head-cell-${column.fixed}` : ''} ${params?.className || ''}`;
+    const classNames = [`${prefixCls}-head-cell`];
+    if (column.fixed) {
+      classNames.push(`${prefixCls}-head-cell-${column.fixed}`);
+    }
+    if (column.sortable) {
+      classNames.push(`${prefixCls}-head-cell-sortable`);
+    }
+    if (params?.className) {
+      classNames.push(params.className);
+    }
+    const className = classNames.join(' ');
+    let upActive, downActive;
+    if (sortedColumn === column.key) {
+      upActive = sortDirection === 'asc' ? 'active' : '';
+      downActive = sortDirection === 'desc' ? 'active' : '';
+    }
+
     return (
       <th
         className={className}
@@ -48,7 +68,26 @@ function Header<T>({
         onClick={() => column.sortable && onSort(column.key)}
         style={styles}
       >
-        {column.title}
+        <div className={`${prefixCls}-head-cell-title`}>
+          {column.title}
+          {/* 排序icon */}
+          {column.sortable && (
+            <div className={`${prefixCls}-head-cell-sort-icon`}>
+              {/* 升序 */}
+              <div
+                className={`${prefixCls}-head-cell-sort-icon-up ${upActive}`}
+              >
+                ^
+              </div>
+              {/* 降序 */}
+              <div
+                className={`${prefixCls}-head-cell-sort-icon-down ${downActive}`}
+              >
+                ^
+              </div>
+            </div>
+          )}
+        </div>
       </th>
     );
   };

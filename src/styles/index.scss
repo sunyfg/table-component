@@ -30,6 +30,10 @@ $primary-color: #1890ff;
     border-bottom: 1px solid #ebeef5;
     font-size: 14px;
     background-color: #fff;
+
+    &-title {
+      display: flex;
+    }
     
     &-left, &-right {
       position: sticky;
@@ -62,7 +66,34 @@ $primary-color: #1890ff;
       height: 100%;
       box-shadow: inset -10px 0 8px -8px rgba(5, 5, 5, 0.06);
     }
-
+    &-sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+    &-sort-icon {
+      position: relative;
+      height: 20px;
+      width: 20px;
+      margin-left: 8px;
+      color: #d9d9d9;
+    }
+    &-sort-icon-up, &-sort-icon-down {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      text-align: center;
+      &.active {
+        color: #000;
+      }
+    }
+    &-sort-icon-up {
+      transform: translateY(-2px);
+    }
+    &-sort-icon-down {
+      left: 0;
+      transform: rotate(180deg) translateY(-2px);
+    }
+    
   }
   &-body-cell {
     padding: 12px 16px;
@@ -121,6 +152,9 @@ $primary-color: #1890ff;
     margin-right: 8px;
   }
 
+  &-page-size {
+    margin-right: 8px;
+  }
   // 每页显示条数
   &-page-size-select {
     margin: 0 8px;
