@@ -2,19 +2,19 @@ import { readFileSync } from "fs";
 import { defineConfig } from "rollup";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "@rollup/plugin-babel";
-import typescriptEngine from "typescript";
-import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
-import terser from "@rollup/plugin-terser";
-import url from "@rollup/plugin-url";
+import { DEFAULT_EXTENSIONS } from "@babel/core";
+import babel from "@rollup/plugin-babel"; // babel 编译
+import typescriptEngine from "typescript"; // typescript 编译
+import typescript from "@rollup/plugin-typescript"; // typescript 编译
+import postcss from "rollup-plugin-postcss"; // css 处理
+import terser from "@rollup/plugin-terser"; // 压缩
+import url from "@rollup/plugin-url"; // 处理图片
 
 const pkg = JSON.parse(readFileSync("./package.json"));
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
 const isProduction = process.env.NODE_ENV === "production";
-console.log("🚀 ~ isProduction:", isProduction);
 
 export default defineConfig(
   {
@@ -42,14 +42,15 @@ export default defineConfig(
       resolve(),
       commonjs(),
       babel({
+        extensions: [...DEFAULT_EXTENSIONS, ".ts", "tsx"],
         babelHelpers: "bundled",
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        exclude: /node_modules/, // 防止打包node_modules下的文件
       }),
       typescript({
         tsconfig: "./tsconfig.json",
         typescript: typescriptEngine,
         sourceMap: false,
-        exclude: ["dist", "node_modules/**", "*.mjs"],
+        exclude: ["es", "lib", "node_modules/**", "*.mjs"],
       }),
       url(),
       terser(),

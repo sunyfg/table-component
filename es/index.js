@@ -1,1 +1,1 @@
-Object.defineProperty(exports,"__esModule",{value:!0});var e=require("tslib").__importDefault(require("./components/table"));exports.default=e.default;
+import e from"react";function t(){return e.createElement("div",null,"Table")}export{t as default};
