@@ -1,0 +1,156 @@
+
+$prefixCls: s-table;
+$primary-color: #1890ff;
+
+.#{$prefixCls} {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+
+  &-container {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  &-head {
+    background-color: #fff;
+    border-top: 1px solid #ebeef5;
+    &-sticky {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      // 阴影
+      box-shadow: 0 2px 8px #f0f1f2;
+    }
+  }
+  &-head-cell {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ebeef5;
+    font-size: 14px;
+    background-color: #fff;
+    
+    &-left, &-right {
+      position: sticky;
+      z-index: 5;
+    }
+    &-left {
+      left: 0;
+    }
+    &-right {
+      right: 0;
+    }
+    // 最后一个单元格
+    &-left-last::after {
+      position: absolute;
+      top: 0;
+      right: -30px;
+      content: '';
+      display: block;
+      width: 30px;
+      height: 100%;
+      box-shadow: inset 10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+    &-right-first::after {
+      position: absolute;
+      top: 0;
+      left: -30px;
+      content: '';
+      display: block;
+      width: 30px;
+      height: 100%;
+      box-shadow: inset -10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+
+  }
+  &-body-cell {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ebeef5;
+    font-size: 14px;
+    background-color: #fff;
+
+    &-left, &-right {
+      position: sticky;
+      z-index: 5;
+    }
+    &-left {
+      left: 0;
+    }
+    &-right {
+      right: 0;
+    }
+    // 最后一个单元格
+    &-left-last::after {
+      position: absolute;
+      top: 0;
+      right: -30px;
+      content: '';
+      display: block;
+      width: 30px;
+      height: 100%;
+      box-shadow: inset 10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+    &-right-first::after {
+      position: absolute;
+      top: 0;
+      left: -30px;
+      content: '';
+      display: block;
+      width: 30px;
+      height: 100%;
+      box-shadow: inset -10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+  }
+}
+.pagination {  
+  display: flex;  
+  padding-left: 0;  
+  list-style: none;  
+  border-radius: 6px; 
+
+  &-container {
+    padding: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &-total {
+    margin-right: 8px;
+  }
+
+  // 每页显示条数
+  &-page-size-select {
+    margin: 0 8px;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  &-item {
+    padding: 0.5rem 0.75rem;  
+    margin-left: -1px;  
+    line-height: 1.25;  
+    background-color: #fff;  
+    border: 1px solid #ddd;  
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover:not(.active) {  
+      background-color: #f8f9fa;  
+    }
+
+    &.active {  
+      z-index: 1;  
+      color: #fff;  
+      background-color: #007bff;  
+      border-color: #007bff;  
+    } 
+  }
+} 
