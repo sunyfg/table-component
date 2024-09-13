@@ -1,10 +1,18 @@
 {
-  "name": "@sunyf/table-component",
+  "name": "@sunyfg/table-component",
   "version": "1.0.0",
-  "description": "表格组件",
+  "description": "React 表格组件库（TypeScript + Rollup）",
   "type": "module",
   "main": "./lib/index.js",
   "module": "./es/index.js",
+  "homepage": "https://github.com/sunyfg/table-component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunyfg/table-component.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "install:all": "npm install && cd example && npm install",
     "dev": "cd example && npm run dev",
@@ -14,7 +22,7 @@
   "files": [
     "lib",
     "es",
-    "css"
+    "css/*.css"
   ],
   "keywords": [
     "table",
