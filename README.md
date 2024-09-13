@@ -17,9 +17,9 @@
 
 ![Table Component Screenshot](./screen/iShot_2024-09-13_10.15.09.png)
 
-### 视频
+### 演示
 
-[视频链接](./screen/Screen-2024-09-13-101644.mp4)
+![视频链接](./screen/Screen-2024-09-13-101644.gif)
 
 ## 贡献
 
