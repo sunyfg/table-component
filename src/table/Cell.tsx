@@ -3,7 +3,7 @@ import { prefixCls } from '../utils/common';
 import { ColumnType } from './index';
 
 interface CellProps<T> {
-  key: keyof T;
+  key: string;
   column: ColumnType<T>;
   record: T;
   rowIndex: number;

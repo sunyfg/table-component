@@ -54,7 +54,7 @@ function TableBody<T>(props: TableBodyProps<T>) {
               }
               return (
                 <Cell
-                  key={column.key}
+                  key={column.key as string}
                   column={column}
                   record={record}
                   rowIndex={rowIndex}
@@ -71,7 +71,7 @@ function TableBody<T>(props: TableBodyProps<T>) {
             {middleColumns?.map((column, index) => {
               return (
                 <Cell
-                  key={column.key}
+                  key={column.key as string}
                   column={column}
                   record={record}
                   rowIndex={rowIndex}
@@ -85,7 +85,7 @@ function TableBody<T>(props: TableBodyProps<T>) {
               }
               return (
                 <Cell
-                  key={column.key}
+                  key={column.key as string}
                   column={column}
                   record={record}
                   rowIndex={rowIndex}
