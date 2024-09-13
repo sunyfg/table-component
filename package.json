@@ -11,7 +11,18 @@
     "build": "rollup -c && sass src/styles/index.scss css/index.css",
     "prepare": "husky install"
   },
-  "keywords": [],
+  "files": [
+    "lib",
+    "es",
+    "css"
+  ],
+  "keywords": [
+    "table",
+    "react",
+    "component",
+    "table-component",
+    "ui"
+  ],
   "author": "",
   "license": "ISC",
   "peerDependencies": {
