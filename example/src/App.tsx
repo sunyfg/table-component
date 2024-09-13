@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Table, { ColumnType } from '../../src/index';
-import '../../src/styles/index.scss';
+import Table, { ColumnType } from '@sunyfg/table-component';
+import '@sunyfg/table-component/css/index.css';
 
 // 用户信息
 interface User {  
