@@ -4,6 +4,7 @@ export interface PaginationProps {
   current: number;
   total: number;
   pageSize: number;
+  pageSizes?: number[];
   onChange: (page: number) => void;
   onPageSizeChange?: (page: number, size: number) => void;
 }
@@ -36,6 +37,7 @@ const Pagination = ({
   current,
   total,
   pageSize,
+  pageSizes = [10, 20, 30, 40, 50],
   onChange,
   onPageSizeChange,
 }: PaginationProps) => {
@@ -156,9 +158,11 @@ const Pagination = ({
             onPageSizeChange?.(current, pageSize);
           }}
         >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
+          {pageSizes.map(item => (
+            <option value={item} key={item}>
+              {item}
+            </option>
+          ))}
         </select>
         条
       </div>

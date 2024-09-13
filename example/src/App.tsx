@@ -79,7 +79,7 @@ const columns: ColumnType<User>[] = [
   {
     title: 'updateTime',
     dataIndex: 'updateTime',
-    width: 100,
+    width: 120,
     fixed: 'right',
     key: 'updateTime',
   },
@@ -94,7 +94,7 @@ const columns: ColumnType<User>[] = [
 
 const dataSource: User[] = [];
 
-for (let i = 1; i < 100; i++) {
+for (let i = 1; i <= 1000; i++) {
   dataSource.push({
     key: `${i}`,
     name: `Jim Red ${i}`,
@@ -115,7 +115,7 @@ function App() {
   const [pagenation, setPagenation] = useState({
     current: 1,
     total: dataSource.length,
-    pageSize: 10,
+    pageSize: 20,
   });
 
   return (
@@ -123,7 +123,7 @@ function App() {
       <Table 
         columns={columns}
         dataSource={dataSource}
-        scroll={{ x: 1500}}
+        scroll={{ x: 1500, y: 400 }}
         sticky
         pagenation={{
           current: pagenation.current,

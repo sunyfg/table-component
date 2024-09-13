@@ -3,21 +3,24 @@ import { prefixCls } from '../utils/common';
 import { ColumnType } from './index';
 
 interface TableHeaderProps<T> {
+  className?: string;
+  style?: React.CSSProperties;
   leftColumns: ColumnType<T>[]; // 假设ColumnProps是Column组件的Props类型
   columns: ColumnType<T>[]; // 假设ColumnProps是Column组件的Props类型
   rightColumns: ColumnType<T>[]; // 假设ColumnProps是Column组件的Props类型
   sticky?: boolean; // 是否固定表头
-  sortedColumn?: keyof T; // 当前排序的列
+  sortedColumn?: keyof T | null; // 当前排序的列
   sortDirection?: 'asc' | 'desc'; // 排序方向
   onSort: (column: keyof T) => void;
 }
 
 // 表头组件
 function Header<T>({
+  className,
+  style,
   leftColumns,
   columns,
   rightColumns,
-  sticky,
   sortedColumn,
   sortDirection,
   onSort,
@@ -93,9 +96,7 @@ function Header<T>({
   };
 
   return (
-    <thead
-      className={`${prefixCls}-head ${sticky ? `${prefixCls}-head-sticky` : ''}`}
-    >
+    <thead className={`${prefixCls}-head ${className || ''}`} style={style}>
       <tr>
         {leftColumns?.map((column, index) => {
           let className = '';

@@ -11,16 +11,17 @@ $primary-color: #1890ff;
     width: 100%;
     overflow-x: auto;
     position: relative;
+    border-bottom: 1px solid #ebeef5;
   }
 
   &-head {
     background-color: #fff;
     border-top: 1px solid #ebeef5;
     &-sticky {
+      width: 100%;
       position: sticky;
       top: 0;
       z-index: 10;
-      // 阴影
       box-shadow: 0 2px 8px #f0f1f2;
     }
   }
@@ -132,6 +133,19 @@ $primary-color: #1890ff;
       width: 30px;
       height: 100%;
       box-shadow: inset -10px 0 8px -8px rgba(5, 5, 5, 0.06);
+    }
+  }
+  &-body tr {
+    &:hover {
+      .#{$prefixCls}-body-cell {
+        background-color: #f5f7fa;
+      }
+      
+    }
+  }
+  &-body tr:last-child {
+    .#{$prefixCls}-body-cell {
+      border-bottom: none;
     }
   }
 }

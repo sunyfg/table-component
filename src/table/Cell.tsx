@@ -25,7 +25,7 @@ function Cell<T>(props: CellProps<T>) {
 
   return (
     <td
-      className={`${prefixCls}-body-cell ${column.fixed ? `${prefixCls}-body-cell-${column.fixed}` : ''} ${className}`}
+      className={`${prefixCls}-body-cell ${column.fixed ? `${prefixCls}-body-cell-${column.fixed}` : ''} ${className || ''}`}
       key={column.key as string}
       style={styles}
     >

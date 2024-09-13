@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { prefixCls } from '../utils/common';
 import useTableSort from '../hooks/useTableSort';
 import Header from './Head';
-import Cell from './Cell';
 import Pagination, { PaginationProps } from './Pagination';
+import TableBody from './Body';
 
 // 列类型定义
 export interface ColumnType<T> {
@@ -58,99 +58,65 @@ function Table<T>(props: TableProps<T>) {
     [columns]
   );
 
-  // 渲染表格内容
-  const renderRows = useMemo(() => {
-    const { current, pageSize } = pagenation || { current: 1, pageSize: 10 };
-    return sortedData
-      ?.slice((current - 1) * pageSize, current * pageSize)
-      .map((record, rowIndex) => {
-        let leftWidth = 0;
-        let rightWidth = rightColumns.reduce((acc, column) => {
-          if (typeof column.width === 'number') {
-            acc += column.width;
-          }
-          return acc;
-        }, 0);
-
-        return (
-          <tr
-            key={
-              typeof rowKey === 'function' ? rowKey(record, rowIndex) : rowIndex
-            }
-          >
-            {leftColumns?.map((column, index) => {
-              let left = 0;
-              if (index > 0) {
-                left = leftWidth;
-              }
-              if (typeof column.width === 'number') {
-                leftWidth += column.width;
-              }
-              return (
-                <Cell
-                  key={column.key}
-                  column={column}
-                  record={record}
-                  rowIndex={rowIndex}
-                  colIndex={index}
-                  className={
-                    index + 1 === leftColumns.length
-                      ? `${prefixCls}-body-cell-left-last`
-                      : ''
-                  }
-                  styles={{ left }}
-                ></Cell>
-              );
-            })}
-            {middleColumns?.map((column, index) => {
-              return (
-                <Cell
-                  key={column.key}
-                  column={column}
-                  record={record}
-                  rowIndex={rowIndex}
-                  colIndex={index}
-                ></Cell>
-              );
-            })}
-            {rightColumns?.map((column, index) => {
-              if (typeof column.width === 'number') {
-                rightWidth -= column.width;
-              }
-              return (
-                <Cell
-                  key={column.key}
-                  column={column}
-                  record={record}
-                  rowIndex={rowIndex}
-                  colIndex={index}
-                  className={
-                    index === 0 ? `${prefixCls}-body-cell-right-first` : ''
-                  }
-                  styles={{ right: rightWidth }}
-                ></Cell>
-              );
-            })}
-          </tr>
-        );
-      });
-  }, [sortedData, columns, rowKey, pagenation]);
+  const renderCols = (columns: ColumnType<T>[]) => {
+    const total: number = columns.length;
+    const totalWidth: number = scroll?.x as number;
+    const leftWidth: number = leftColumns.reduce(
+      (acc, cur) => acc + (cur.width || 0),
+      0
+    );
+    const rightWidth: number = rightColumns.reduce(
+      (acc, cur) => acc + (cur.width || 0),
+      0
+    );
+    const middleWidth: number = totalWidth - leftWidth - rightWidth;
+    const middleColWidth: number =
+      middleWidth / (total - leftColumns.length - rightColumns.length);
+    return columns.map((column: ColumnType<T>, index: number) => {
+      const width: number | undefined = column.width || middleColWidth;
+      return <col key={index} style={{ width: width, minWidth: width }} />;
+    });
+  };
 
   return (
     <div className={`${prefixCls}-container-pagenation`}>
-      <div className={`${prefixCls}-container`}>
-        <table className={prefixCls} style={{ width: scroll?.x || '100%' }}>
-          <Header
-            leftColumns={leftColumns}
-            columns={middleColumns}
-            rightColumns={rightColumns}
-            onSort={handleSort}
-            sticky={sticky}
-            sortedColumn={sortedColumn}
-            sortDirection={sortDirection}
-          />
-          <tbody className={`${prefixCls}-body`}>{renderRows}</tbody>
-        </table>
+      <div
+        className={`${prefixCls}-container ${sticky ? `${prefixCls}-container-sticky` : ''}`}
+      >
+        {/* 表头 */}
+        <div
+          className={`${prefixCls}-container-header ${sticky ? `${prefixCls}-head-sticky` : ''}`}
+        >
+          <table className={prefixCls} style={{ width: scroll?.x || '100%' }}>
+            <colgroup>{renderCols(columns)}</colgroup>
+            <Header
+              leftColumns={leftColumns}
+              columns={middleColumns}
+              rightColumns={rightColumns}
+              onSort={handleSort}
+              sticky={sticky}
+              sortedColumn={sortedColumn}
+              sortDirection={sortDirection}
+            />
+          </table>
+        </div>
+        <div
+          className={`${prefixCls}-container-body`}
+          style={{ maxHeight: scroll?.y || 'auto' }}
+        >
+          <table className={prefixCls} style={{ width: scroll?.x || '100%' }}>
+            <colgroup>{renderCols(columns)}</colgroup>
+            <TableBody
+              columns={columns}
+              leftColumns={leftColumns}
+              middleColumns={middleColumns}
+              rightColumns={rightColumns}
+              sortedData={sortedData}
+              rowKey={rowKey}
+              pagenation={pagenation}
+            />
+          </table>
+        </div>
       </div>
       {/* 分页 */}
       {pagenation && <Pagination {...pagenation}></Pagination>}
