@@ -43,7 +43,6 @@ const columns: ColumnType<User>[] = [
     sortable: true,
     width: 150,
     fixed: 'left',
-    onSort: (a, b) => a.age - b.age,
   },
   {
     title: 'Nickname',
@@ -70,7 +69,6 @@ const columns: ColumnType<User>[] = [
     dataIndex: 'remark',
     key: 'remark',
   },
-  
   {
     title: 'createTime',
     dataIndex: 'createTime',

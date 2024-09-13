@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 import { prefixCls } from '../utils/common';
 import { PaginationProps } from './Pagination';
 import { ColumnType } from '.';
@@ -59,11 +60,10 @@ function TableBody<T>(props: TableBodyProps<T>) {
                   record={record}
                   rowIndex={rowIndex}
                   colIndex={index}
-                  className={
-                    index + 1 === leftColumns.length
-                      ? `${prefixCls}-body-cell-left-last`
-                      : ''
-                  }
+                  className={classNames({
+                    [`${prefixCls}-body-cell-left-last`]:
+                      index + 1 === leftColumns.length,
+                  })}
                   styles={{ left }}
                 ></Cell>
               );

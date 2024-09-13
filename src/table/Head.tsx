@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { prefixCls } from '../utils/common';
 import { ColumnType } from './index';
 
@@ -47,17 +48,17 @@ function Header<T>({
     if (params?.right) {
       styles.right = params.right;
     }
-    const classNames = [`${prefixCls}-head-cell`];
+    const classList = [`${prefixCls}-head-cell`];
     if (column.fixed) {
-      classNames.push(`${prefixCls}-head-cell-${column.fixed}`);
+      classList.push(`${prefixCls}-head-cell-${column.fixed}`);
     }
     if (column.sortable) {
-      classNames.push(`${prefixCls}-head-cell-sortable`);
+      classList.push(`${prefixCls}-head-cell-sortable`);
     }
     if (params?.className) {
-      classNames.push(params.className);
+      classList.push(params.className);
     }
-    const className = classNames.join(' ');
+    const className = classList.join(' ');
     let upActive, downActive;
     if (sortedColumn === column.key) {
       upActive = sortDirection === 'asc' ? 'active' : '';
@@ -78,13 +79,19 @@ function Header<T>({
             <div className={`${prefixCls}-head-cell-sort-icon`}>
               {/* 升序 */}
               <div
-                className={`${prefixCls}-head-cell-sort-icon-up ${upActive}`}
+                className={classNames(
+                  `${prefixCls}-head-cell-sort-icon-up`,
+                  upActive
+                )}
               >
                 ^
               </div>
               {/* 降序 */}
               <div
-                className={`${prefixCls}-head-cell-sort-icon-down ${downActive}`}
+                className={classNames(
+                  `${prefixCls}-head-cell-sort-icon-down`,
+                  downActive
+                )}
               >
                 ^
               </div>
@@ -96,7 +103,7 @@ function Header<T>({
   };
 
   return (
-    <thead className={`${prefixCls}-head ${className || ''}`} style={style}>
+    <thead className={classNames(`${prefixCls}-head`, className)} style={style}>
       <tr>
         {leftColumns?.map((column, index) => {
           let className = '';

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import classNames from 'classnames';
 import { prefixCls } from '../utils/common';
 import useTableSort from '../hooks/useTableSort';
 import Header from './Head';
@@ -81,11 +82,15 @@ function Table<T>(props: TableProps<T>) {
   return (
     <div className={`${prefixCls}-container-pagenation`}>
       <div
-        className={`${prefixCls}-container ${sticky ? `${prefixCls}-container-sticky` : ''}`}
+        className={classNames(`${prefixCls}-container`, {
+          [`${prefixCls}-container-sticky`]: sticky,
+        })}
       >
         {/* 表头 */}
         <div
-          className={`${prefixCls}-container-header ${sticky ? `${prefixCls}-head-sticky` : ''}`}
+          className={classNames(`${prefixCls}-container-header`, {
+            [`${prefixCls}-head-sticky`]: sticky,
+          })}
         >
           <table className={prefixCls} style={{ width: scroll?.x || '100%' }}>
             <colgroup>{renderCols(columns)}</colgroup>

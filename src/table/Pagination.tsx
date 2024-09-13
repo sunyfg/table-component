@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 export interface PaginationProps {
   current: number;
@@ -26,7 +27,7 @@ const PaginationItem = ({
 }) => (
   <li
     key={key}
-    className={`pagination-item ${active ? 'active' : ''} ${className}`}
+    className={classNames('pagination-item', active && 'active', className)}
     onClick={() => onClick?.(index)}
   >
     {children || index}

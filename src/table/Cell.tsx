@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { prefixCls } from '../utils/common';
 import { ColumnType } from './index';
 
@@ -25,7 +26,11 @@ function Cell<T>(props: CellProps<T>) {
 
   return (
     <td
-      className={`${prefixCls}-body-cell ${column.fixed ? `${prefixCls}-body-cell-${column.fixed}` : ''} ${className || ''}`}
+      className={classNames(
+        `${prefixCls}-body-cell`,
+        { [`${prefixCls}-body-cell-${column.fixed}`]: column.fixed },
+        className
+      )}
       key={column.key as string}
       style={styles}
     >
