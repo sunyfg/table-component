@@ -127,12 +127,20 @@ export default MyComponent;
 
 ### 构建和贡献
 
-安装依赖
+安装依赖：
 
 ```bash
-npm install
+npm run install:all
 or
-yarn install
+yarn install:all
+```
+
+本地启动开发环境：
+
+```bash
+npm run dev
+or
+yarn dev
 ```
 
 要构建这个库，请运行以下命令：

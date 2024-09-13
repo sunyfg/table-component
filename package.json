@@ -6,6 +6,8 @@
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "scripts": {
+    "install:all": "npm install && cd example && npm install",
+    "dev": "cd example && npm run dev",
     "build": "rollup -c && sass src/styles/index.scss css/index.css",
     "prepare": "husky install"
   },
